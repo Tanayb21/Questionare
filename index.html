@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANJ Questionnaire by Ajay Sir</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ffffff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .date {
+            font-size: 1.2em;
+            color: #888;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            opacity: 0;
+            animation: slideIn 0.8s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .question-card:hover::before {
+            left: 100%;
+        }
+
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+
+        .question-card:nth-child(1) { animation-delay: 0.2s; }
+        .question-card:nth-child(2) { animation-delay: 0.4s; }
+        .question-card:nth-child(3) { animation-delay: 0.6s; }
+        .question-card:nth-child(4) { animation-delay: 0.8s; }
+        .question-card:nth-child(5) { animation-delay: 1s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffffff 0%, #666666 100%);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .question-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .answer {
+            color: #ccc;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .answer p {
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            padding: 2px 8px;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid #333;
+            color: #666;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .question-title {
+                font-size: 1.2em;
+            }
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+
+    <header>
+        <h1>ANJ Questionnaire by Ajay Sir</h1>
+        <div class="date">1 November 2025</div>
+    </header>
+
+    <div class="container">
+        <div class="question-card">
+            <span class="question-number">Question 1</span>
+            <div class="question-title">What excites you about AI and ML? Can you discuss an example of a current AI application that you find particularly innovative or exciting?</div>
+            <div class="answer">
+                <p>Coming from an area with limited facilities (<span class="highlight">Neral, Karjat</span>), my journey in AI and ML began during one of my NGO campaigns. I implemented a <span class="highlight">bulk image upload OCR system</span> — not by writing code myself, but by using Anthropic's tools to extract data from ID cards. This saved time, increased participation, and shortened long queues.</p>
+                <p>After that, I learned all the core terminologies and model types, then built various Python automation scripts like bulk messengers for marketing campaigns. I later sold these automation tools to firms, which helped boost their business. Alongside, I practiced the basics by building prediction models on Kaggle datasets.</p>
+                <p>What excites me most about AI and ML is their ability to <span class="highlight">process tasks that would take humans enormous time and effort</span>. The art of building Python scripts and models to automate everyday processes truly drives my passion for this field.</p>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">Question 2</span>
+            <div class="question-title">Please explain in brief how you ended up exploring AI as a career option.</div>
+            <div class="answer">
+                <p>I hold a <span class="highlight">B.Sc. in Computer Science</span> and plan to pursue a Master's in 2028. The reason I'm not applying immediately is that I want real-world experience in AI and ML before entering a research-oriented Master's program. My target countries are <span class="highlight">Japan and the Netherlands</span> — both known for strong research programs in AI.</p>
+                <p>My main motivation to explore AI was to work in a field that's <span class="highlight">dynamic and full of challenges</span>, rather than a stagnant job. That's why I chose Computer Science in the first place.</p>
+                <p>I've also tried other paths, including government exams, but my passion for Python always pulled me back. 😂</p>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">Question 3</span>
+            <div class="question-title">With the evolution of AI, human dependence on technology will increase, causing job displacement. Do you wish to partake in such an AI revolution? How do you see your role in this future world?</div>
+            <div class="answer">
+                <p>AI will replace many entry-level jobs, but not skilled labor. Instead, it will <span class="highlight">reshape how we work</span>. I believe contributing to the evolution of AI — as data scientists do — is vital.</p>
+                <p>In the future, I see myself <span class="highlight">identifying real-world problems and optimizing solutions</span> through AI models. For instance, in a recent vendor project, I integrated AI to solve logistics and warehousing challenges — enabling models to determine the shortest cargo routes and optimal package loads to improve fuel efficiency and reduce delivery time.</p>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">Question 4</span>
+            <div class="question-title">If you were to choose an alternate career path, what would it be? Why?</div>
+            <div class="answer">
+                <p>I graduated in 2024 and have since worked mostly through agreements and vendor-based projects rather than full-time roles. Now, I'm seeking <span class="highlight">solid corporate experience in AI</span> — and most importantly, a mentor.</p>
+                <p>My biggest mistake after 2024 was avoiding full-time employment and starting a firm (unregistered) without enough experience. While I excelled in stakeholder management and meeting deadlines, I struggled with consistency and staying focused on one problem statement.</p>
+                <p>As I plan to pursue post-graduation in <span class="highlight">Amsterdam or Kyoto in 2028</span>, gaining strong corporate exposure in Data Science is essential to prepare for future research.</p>
+                <p>If I were to choose an alternate path, I'd become a <span class="highlight">professor in AI and ML</span> — as I genuinely enjoy teaching and helping others once I complete my Master's and Ph.D.</p>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <span class="question-number">Question 5</span>
+            <div class="question-title">Say, a person you're looking after wakes up from a 30-year coma. How would you explain the change in the world around him?</div>
+            <div class="answer">
+                <p>I will obviously start with an optimistic and less shocking tone:</p>
+                <p>"<span class="highlight">A lot has changed, brother.</span> People now use smart devices for almost everything — even cars can drive themselves! Jobs like data entry and basic web development have been automated. But don't worry, we now have advanced bots helping in everything from manufacturing to healthcare. The internet connects our homes, hospitals, and workplaces. The world has progressed a lot, though new challenges like climate change and cyber thefts have emerged. Overall, life has become <span class="highlight">faster, smarter, and far more connected</span> than ever before!"</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Created with passion for AI & ML | 2025</p>
+    </footer>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scroll animation
+        document.querySelectorAll('.question-card').forEach((card, index) => {
+            card.style.animationDelay = (index * 0.2) + 's';
+        });
+
+        // Add parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('header');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateX(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.question-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
